@@ -11,8 +11,11 @@ export const ProductItem: FC<Partial<Product>> = ({
     price,
 }) => {
     return (
-        <Link href={`${ROUTES.product}/${id}`}>
-            <article className="flex flex-col border border-red-900 w-96">
+        <Link
+            href={`${ROUTES.product}/${id}`}
+            className="flex flex-col border border-red-900 w-80 h-auto justify-between"
+        >
+            <div>
                 <Image
                     src={image}
                     alt={title}
@@ -20,13 +23,15 @@ export const ProductItem: FC<Partial<Product>> = ({
                     height={400}
                     className="w-96 h-96 object-contain border mb-4"
                 />
-                <h3 className="font-semibold text-lg">{title}</h3>
-                <p>Rs. {price}</p>
+                <div className="p-4">
+                    <h3 className="font-semibold text-lg">{title}</h3>
+                    <p>Rs. {price}</p>
+                </div>
+            </div>
 
-                <button className="bg-red-500 p-1 rounded-xl font-semibold text-white mt-8">
-                    Add to cart
-                </button>
-            </article>
+            <button className="bg-red-500 rounded-3xl text-lg p-2 font-semibold text-white mt-8 mb-4 mx-8">
+                Add to cart
+            </button>
         </Link>
     );
 };

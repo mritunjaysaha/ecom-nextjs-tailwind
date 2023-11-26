@@ -19,7 +19,7 @@ export default function Home() {
     }, [data]);
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main className="flex flex-wrap gap-2 min-h-screen p-24">
             {data.map(({ id, price, image, title }) => {
                 return (
                     <ProductItem
