@@ -31,22 +31,15 @@ export const cartSlice = createSlice({
         },
 
         removeFromCart: (state, { payload }) => {
-            const id = payload as number;
+            const product = payload as Product;
 
-            const filteredItems = state.items.filter((item) => {
-                if (item.id === id) {
-                    let { totalPrice, totalQuantity } = state;
-
-                    totalPrice -= item.price;
-                    totalQuantity -= 1;
-                }
-
-                return item;
-            });
-
-            console.log({ filteredItems });
+            const filteredItems = state.items.filter(
+                (item) => item.id !== product.id
+            );
 
             state.items = filteredItems;
+            state.totalPrice -= product.price;
+            state.totalQuantity -= 1;
         },
     },
 });

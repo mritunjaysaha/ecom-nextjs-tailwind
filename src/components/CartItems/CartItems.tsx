@@ -14,7 +14,7 @@ export const CartItems: FC<CartItemsProps> = ({ item }) => {
     const dispatch = useDispatch();
 
     const handleRemoveClick: MouseEventHandler<HTMLButtonElement> = (e) => {
-        dispatch(removeFromCart(item.id));
+        dispatch(removeFromCart(item));
     };
 
     return (
