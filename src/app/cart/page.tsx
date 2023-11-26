@@ -12,7 +12,9 @@ export default function Cart() {
 
     return (
         <main className="px-24 py-12">
-            <h1 className="mb-4">Shopping cart</h1>
+            <h1 className="mb-4 text-2xl font-bold">
+                {totalQuantity ? "Shopping cart" : "Your cart is empty"}
+            </h1>
 
             <section className="flex gap-8 w-full">
                 <div className="flex flex-col w-9/12">
@@ -20,7 +22,7 @@ export default function Cart() {
                         <CartItems key={item.id} item={item} />
                     ))}
                 </div>
-                {!!totalPrice && (
+                {!!totalQuantity && (
                     <article className="flex flex-col border p-8 w-max h-max">
                         <p className="text-lg">
                             Subtotal (items {totalQuantity}):{" "}
