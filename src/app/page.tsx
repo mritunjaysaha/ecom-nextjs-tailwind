@@ -20,16 +20,8 @@ export default function Home() {
 
     return (
         <main className="flex flex-wrap gap-2 min-h-screen p-24">
-            {data.map(({ id, price, image, title }) => {
-                return (
-                    <ProductItem
-                        key={id}
-                        id={id}
-                        title={title}
-                        price={price}
-                        image={image}
-                    />
-                );
+            {data.map((item) => {
+                return <ProductItem key={item.id} item={item} />;
             })}
         </main>
     );
