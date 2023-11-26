@@ -16,7 +16,6 @@ export const ProductItem: FC<ProductItemProps> = ({ item }) => {
     const handleAddToCartClick: React.MouseEventHandler<HTMLButtonElement> = (
         e
     ) => {
-        e.stopPropagation();
         dispatch(addToCart(item));
     };
 
@@ -34,7 +33,7 @@ export const ProductItem: FC<ProductItemProps> = ({ item }) => {
                 </Link>{" "}
                 <div className="p-4">
                     <h3 className="font-semibold text-lg">{item.title}</h3>
-                    <p>Rs. {item.price}</p>
+                    <p>&#8377; {item.price}</p>
                 </div>
             </div>
 

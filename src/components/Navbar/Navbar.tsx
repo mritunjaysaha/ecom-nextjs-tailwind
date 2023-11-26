@@ -8,11 +8,12 @@ export const Navbar = () => {
     const { totalPrice } = useAppSelector((state) => state.cart);
 
     return (
-        <nav className="border h-24 px-24 flex items-center justify-end">
+        <nav className="border h-24 px-24 flex items-center justify-between">
+            <Link href={ROUTES.home}>Home</Link>
             <Link href={ROUTES.cart}>
                 Cart:&nbsp;&nbsp;
                 <span className="font-semibold text-lg">
-                    &#8377; {Math.ceil(totalPrice)}
+                    &#8377; {Math.round(totalPrice)}
                 </span>
             </Link>
         </nav>
