@@ -1,6 +1,6 @@
 "use client";
 
-import { store } from "@/app/GlobalRedux/store";
+import { store } from "@/GlobalRedux/store";
 import { FC } from "react";
 import { Provider } from "react-redux";
 

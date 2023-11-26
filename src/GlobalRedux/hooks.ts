@@ -1,4 +1,4 @@
-import { RootState, AppDispatch } from "@/app/GlobalRedux/store";
+import { RootState, AppDispatch } from "@/GlobalRedux/store";
 import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 
