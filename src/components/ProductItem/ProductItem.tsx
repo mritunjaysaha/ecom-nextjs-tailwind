@@ -4,8 +4,12 @@ import Image from "next/image";
 import { FC } from "react";
 import { ROUTES } from "@/constants/routes";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/GlobalRedux/feature/cart/cartSlice";
+import {
+    addToCart,
+    removeFromCart,
+} from "@/GlobalRedux/feature/cart/cartSlice";
 import { Button } from "@/components/Button/Button";
+import { useAppSelector } from "@/GlobalRedux/hooks";
 
 type ProductItemProps = {
     item: Product;
@@ -14,10 +18,14 @@ type ProductItemProps = {
 export const ProductItem: FC<ProductItemProps> = ({ item }) => {
     const dispatch = useDispatch();
 
-    const handleAddToCartClick: React.MouseEventHandler<HTMLButtonElement> = (
-        e
-    ) => {
+    const { itemsQuantity } = useAppSelector((state) => state.cart);
+
+    const handleAddToCartClick = () => {
         dispatch(addToCart(item));
+    };
+
+    const handleRemoveFromCartClick = () => {
+        dispatch(removeFromCart(item));
     };
 
     return (
@@ -38,9 +46,31 @@ export const ProductItem: FC<ProductItemProps> = ({ item }) => {
                 </div>
             </div>
 
-            <Button className="mt-8 mb-4 mx-8" onClick={handleAddToCartClick}>
-                Add to cart
-            </Button>
+            {!itemsQuantity[item.id] ? (
+                <Button
+                    className="mt-8 mb-4 mx-8"
+                    onClick={handleAddToCartClick}
+                >
+                    Add to cart
+                </Button>
+            ) : (
+                <div className="flex items-center justify-between w-3/4 mx-auto mb-4">
+                    <button
+                        onClick={handleRemoveFromCartClick}
+                        className="text-4xl"
+                    >
+                        {" "}
+                        -{" "}
+                    </button>
+                    <span className="text-xl font-semibold">
+                        {itemsQuantity[item.id]}
+                    </span>
+                    <button onClick={handleAddToCartClick} className="text-4xl">
+                        {" "}
+                        +{" "}
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

@@ -24,27 +24,29 @@ export const cartSlice = createSlice({
         addToCart: (state, { payload }) => {
             const product = payload as Product;
 
-            if (state.itemsQuantity[`${product.id}`]) {
+            if (state.itemsQuantity[product.id]) {
                 state.totalPrice += product.price;
                 state.totalQuantity += 1;
-                state.itemsQuantity[`${product.id}`] += 1;
+                state.itemsQuantity[product.id] += 1;
                 return;
             }
 
             const { items } = state;
             items.push(product);
             state.totalQuantity += 1;
-            state.itemsQuantity[`${product.id}`] = 1;
+            state.itemsQuantity[product.id] = 1;
             state.totalPrice += product.price;
         },
 
         removeFromCart: (state, { payload }) => {
             const product = payload as Product;
 
-            let currentProductQuantity = state.itemsQuantity[`${product.id}`];
-
-            if (currentProductQuantity > 1) {
-                currentProductQuantity -= 1;
+            let currentProductQuantity = state.itemsQuantity[product.id];
+            console.log({ currentProductQuantity });
+            if (currentProductQuantity > 0) {
+                state.itemsQuantity[product.id] -= 1;
+                state.totalPrice -= product.price;
+                state.totalQuantity -= 1;
 
                 return;
             }
