@@ -1,21 +1,20 @@
-import { removeFromCart } from "@/GlobalRedux/feature/cart/cartSlice";
+import { useAppSelector } from "@/GlobalRedux/hooks";
 import { ROUTES } from "@/constants/routes";
+import { useUpdateItemQuantity } from "@/hooks/useUpdateItemQuantity";
 import { Product } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
-import { FC, MouseEventHandler } from "react";
-import { useDispatch } from "react-redux";
+import { FC } from "react";
 
 type CartItemsProps = {
     item: Product;
 };
 
 export const CartItems: FC<CartItemsProps> = ({ item }) => {
-    const dispatch = useDispatch();
+    const { itemsQuantity } = useAppSelector((state) => state.cart);
 
-    const handleRemoveClick: MouseEventHandler<HTMLButtonElement> = (e) => {
-        dispatch(removeFromCart(item));
-    };
+    const { handleAddToCartClick, handleRemoveFromCartClick } =
+        useUpdateItemQuantity(item);
 
     return (
         <article className="flex justify-between border w-full p-4">
@@ -32,10 +31,28 @@ export const CartItems: FC<CartItemsProps> = ({ item }) => {
                 <div className="flex flex-col gap-2">
                     <h3>{item.title}</h3>
                     <p>&#8377; {item.price}</p>
-                    <p>Quantity: 1</p>
+                    <div className="flex items-center gap-8 w-max">
+                        <button
+                            onClick={handleRemoveFromCartClick}
+                            className="text-2xl flex h-max"
+                        >
+                            {" "}
+                            -{" "}
+                        </button>
+                        <span className="text-md">
+                            {itemsQuantity[item.id]}
+                        </span>
+                        <button
+                            onClick={handleAddToCartClick}
+                            className="text-2xl flex h-max"
+                        >
+                            {" "}
+                            +{" "}
+                        </button>
+                    </div>
                 </div>
             </div>
-            <button onClick={handleRemoveClick}>Remove</button>
+            <button onClick={handleRemoveFromCartClick}>Remove</button>
         </article>
     );
 };

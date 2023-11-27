@@ -43,7 +43,7 @@ export const cartSlice = createSlice({
 
             let currentProductQuantity = state.itemsQuantity[product.id];
             console.log({ currentProductQuantity });
-            if (currentProductQuantity > 0) {
+            if (currentProductQuantity > 1) {
                 state.itemsQuantity[product.id] -= 1;
                 state.totalPrice -= product.price;
                 state.totalQuantity -= 1;
@@ -55,6 +55,7 @@ export const cartSlice = createSlice({
                 (item) => item.id !== product.id
             );
 
+            state.itemsQuantity[product.id] -= 1;
             state.items = filteredItems;
             state.totalPrice -= product.price;
             state.totalQuantity -= 1;

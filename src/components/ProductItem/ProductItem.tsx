@@ -3,11 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { FC } from "react";
 import { ROUTES } from "@/constants/routes";
-import { useDispatch } from "react-redux";
-import {
-    addToCart,
-    removeFromCart,
-} from "@/GlobalRedux/feature/cart/cartSlice";
 import { Button } from "@/components/Button/Button";
 import { useAppSelector } from "@/GlobalRedux/hooks";
 import { useUpdateItemQuantity } from "@/hooks/useUpdateItemQuantity";
