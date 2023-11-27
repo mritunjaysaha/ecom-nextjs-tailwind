@@ -10,23 +10,17 @@ import {
 } from "@/GlobalRedux/feature/cart/cartSlice";
 import { Button } from "@/components/Button/Button";
 import { useAppSelector } from "@/GlobalRedux/hooks";
+import { useUpdateItemQuantity } from "@/hooks/useUpdateItemQuantity";
 
 type ProductItemProps = {
     item: Product;
 };
 
 export const ProductItem: FC<ProductItemProps> = ({ item }) => {
-    const dispatch = useDispatch();
+    const { handleAddToCartClick, handleRemoveFromCartClick } =
+        useUpdateItemQuantity(item);
 
     const { itemsQuantity } = useAppSelector((state) => state.cart);
-
-    const handleAddToCartClick = () => {
-        dispatch(addToCart(item));
-    };
-
-    const handleRemoveFromCartClick = () => {
-        dispatch(removeFromCart(item));
-    };
 
     return (
         <div className="flex flex-col border border-red-900 w-80 h-auto justify-between">
