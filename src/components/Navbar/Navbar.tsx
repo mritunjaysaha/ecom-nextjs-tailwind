@@ -13,7 +13,7 @@ export const Navbar = () => {
             <Link href={ROUTES.cart}>
                 Cart:&nbsp;&nbsp;
                 <span className="font-semibold text-lg">
-                    &#8377; {Math.round(totalPrice)}
+                    &#8377; {totalPrice.toFixed(2)}
                 </span>
             </Link>
         </nav>

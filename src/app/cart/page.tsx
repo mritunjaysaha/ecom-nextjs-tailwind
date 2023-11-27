@@ -27,7 +27,7 @@ export default function Cart() {
                         <p className="text-lg">
                             Subtotal (items {totalQuantity}):{" "}
                             <span className="font-bold">
-                                &#8377; {Math.round(totalPrice)}
+                                &#8377; {totalPrice.toFixed(2)}
                             </span>
                         </p>
                         <Link

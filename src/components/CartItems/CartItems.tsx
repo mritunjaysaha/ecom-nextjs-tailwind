@@ -1,3 +1,4 @@
+import { removeAllItemsFromCart } from "@/GlobalRedux/feature/cart/cartSlice";
 import { useAppSelector } from "@/GlobalRedux/hooks";
 import { ROUTES } from "@/constants/routes";
 import { useUpdateItemQuantity } from "@/hooks/useUpdateItemQuantity";
@@ -5,16 +6,22 @@ import { Product } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
 
 type CartItemsProps = {
     item: Product;
 };
 
 export const CartItems: FC<CartItemsProps> = ({ item }) => {
+    const dispatch = useDispatch();
     const { itemsQuantity } = useAppSelector((state) => state.cart);
 
     const { handleAddToCartClick, handleRemoveFromCartClick } =
         useUpdateItemQuantity(item);
+
+    const handleRemoveAll = () => {
+        dispatch(removeAllItemsFromCart(item));
+    };
 
     return (
         <article className="flex justify-between border w-full p-4">
@@ -52,7 +59,7 @@ export const CartItems: FC<CartItemsProps> = ({ item }) => {
                     </div>
                 </div>
             </div>
-            <button onClick={handleRemoveFromCartClick}>Remove</button>
+            <button onClick={handleRemoveAll}>Remove</button>
         </article>
     );
 };
