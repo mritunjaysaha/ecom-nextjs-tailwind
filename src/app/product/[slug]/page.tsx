@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import Image from "next/image";
 
 import DATA from "@/app/dummyData.json";
+import { Button } from "@/components/Button/Button";
 
 export default function ProductDetailsPage({
     params,
@@ -40,9 +41,7 @@ export default function ProductDetailsPage({
                     Rs. {currentProduct.price}
                 </p>
 
-                <button className="w-60 bg-red-500 p-2 rounded-3xl font-semibold text-white">
-                    Add to cart
-                </button>
+                <Button className="w-60">Add to cart</Button>
             </div>
         </main>
     );

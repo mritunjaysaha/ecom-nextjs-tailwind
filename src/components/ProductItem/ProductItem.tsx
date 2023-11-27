@@ -5,6 +5,7 @@ import { FC } from "react";
 import { ROUTES } from "@/constants/routes";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/GlobalRedux/feature/cart/cartSlice";
+import { Button } from "@/components/Button/Button";
 
 type ProductItemProps = {
     item: Product;
@@ -37,12 +38,9 @@ export const ProductItem: FC<ProductItemProps> = ({ item }) => {
                 </div>
             </div>
 
-            <button
-                className="bg-red-500 rounded-3xl text-lg p-2 font-semibold text-white mt-8 mb-4 mx-8"
-                onClick={handleAddToCartClick}
-            >
+            <Button className="mt-8 mb-4 mx-8" onClick={handleAddToCartClick}>
                 Add to cart
-            </button>
+            </Button>
         </div>
     );
 };
