@@ -18,7 +18,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Project Structure
+## Project Architecture
 
 ```
 └── 📁src
@@ -59,5 +59,18 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
     └── 📁hooks
         └── useUpdateItemQuantity.ts
     └── 📁types
+        └── checkoutForm.ts
         └── product.ts
 ```
+
+This project is set up using **create-next-app** and using **Next.js** app directory. The app directory consists of all the **pages** in the application.
+
+The **components** directory consists of all the reusable components.
+
+The **constants** directory consists of the routes constant values.
+
+The **GlobalRedux** directory consists of the **cart** and **product** slices. It consists the custom hooks for using **redux** with **TypeScript**. **Provider.tsx** is component that consists the boilerplate code for assigning the store to the redux **Provider**. The **store.ts** file consists of the **product and cart reducers**.
+
+The **hooks** directory consists of the reusable custom hooks in the application. The **useUpdateItemQuantity** hook is used for updating the values of items in the **cart**.
+
+The **types** directory consists the types that are required by more than one file.
