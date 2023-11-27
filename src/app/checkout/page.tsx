@@ -3,6 +3,7 @@
 import { useAppSelector } from "@/GlobalRedux/hooks";
 import { Button } from "@/components/Button/Button";
 import { InputField } from "@/components/InputField/InputField";
+import { PaymentDetails } from "@/components/PaymentDetails/PaymentDetails";
 import { ROUTES } from "@/constants/routes";
 import { CheckoutFormType } from "@/types/checkoutForm";
 import { useRouter } from "next/navigation";
@@ -28,21 +29,20 @@ export default function CheckoutPage() {
         defaultValues: initialValues,
     });
 
-    const [isSubmitClicked, setIsSubmitClicked] = useState<boolean>(false);
+    const [showPaymentDetails, setShowPaymentDetails] =
+        useState<boolean>(false);
+    const [showOrderSuccessful, setShowOrderSuccessful] =
+        useState<boolean>(false);
 
     const onSubmit = (data: CheckoutFormType) => {
         console.log("[onSubmit]", { data });
 
-        setIsSubmitClicked(true);
-
-        setTimeout(() => {
-            router.push(ROUTES.home);
-        }, 2000);
+        setShowPaymentDetails(true);
     };
 
     return (
         <main className="p-24 flex gap-24">
-            {!isSubmitClicked && (
+            {!showPaymentDetails && (
                 <>
                     <section className="w-3/4">
                         <h1 className="text-3xl font-semibold mb-16">
@@ -115,7 +115,15 @@ export default function CheckoutPage() {
                 </>
             )}
 
-            {isSubmitClicked && (
+            {showPaymentDetails && !showOrderSuccessful && (
+                <section className="h-full w-full flex flex-col items-center justify-center gap-8">
+                    <PaymentDetails
+                        setShowOrderSuccessful={setShowOrderSuccessful}
+                    />
+                </section>
+            )}
+
+            {showOrderSuccessful && (
                 <section className="h-full w-full flex flex-col items-center justify-center gap-8">
                     <h3 className="text-4xl font-bold">
                         Order placed successfully
