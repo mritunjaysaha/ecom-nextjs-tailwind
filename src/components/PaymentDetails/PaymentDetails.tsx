@@ -1,21 +1,15 @@
 import { resetCart } from "@/GlobalRedux/feature/cart/cartSlice";
 import { Button } from "@/components/Button/Button";
 import { ROUTES } from "@/constants/routes";
+import { PaymentDetailsForm } from "@/types/paymentDetailsForm";
 import { useRouter } from "next/navigation";
 import { Dispatch, FC, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { PaymentDetailsInputField } from "../PaymentDetailsInputField/PaymentDetailsInputField";
 
 type PaymentDetailsProps = {
     setShowOrderSuccessful: Dispatch<SetStateAction<boolean>>;
-};
-
-type PaymentDetailsForm = {
-    name: string;
-    cvv: string;
-    cardNo: string;
-    expiryMonth: string;
-    expiryYear: string;
 };
 
 export const PaymentDetails: FC<PaymentDetailsProps> = ({
@@ -31,7 +25,7 @@ export const PaymentDetails: FC<PaymentDetailsProps> = ({
         expiryMonth: "",
         expiryYear: "",
     };
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: initialState,
     });
 
@@ -49,45 +43,71 @@ export const PaymentDetails: FC<PaymentDetailsProps> = ({
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-            <input
+            <PaymentDetailsInputField
                 className="payment-input"
                 placeholder="Name"
-                {...register("name")}
+                register={register}
+                registerKey="name"
+                errors={errors}
+                validationSchema={{ required: "Card name is required" }}
             />
-            <input
-                type="number"
+            <PaymentDetailsInputField
                 className="payment-input"
                 placeholder="Card Number"
-                {...register("cardNo")}
+                register={register}
+                registerKey="cardNo"
+                errors={errors}
+                validationSchema={{
+                    required: "Card number is required", pattern: {
+                        value: /^\d{16}$/,
+                        message: 'Please enter a valid 16-digit card number',
+
+                    }
+                }}
             />
             <div className="flex gap-4">
-                <input
-                    type="number"
+                <PaymentDetailsInputField
                     className="payment-input"
                     placeholder="Exp month"
-                    {...register("expiryMonth", {
-                        min: 1,
-                        max: 12,
-                    })}
+                    register={register}
+                    registerKey="expiryMonth"
+                    errors={errors}
+                    validationSchema={{
+                        required: 'Expiry date is required',
+                        pattern: {
+                            value: /^\d{2}$/,
+                            message: 'Please enter a valid expiry date (MM)',
+                        },
+                    }}
                 />
-                <input
-                    type="number"
+                <PaymentDetailsInputField
                     className="payment-input"
                     placeholder="Exp year"
-                    pattern="\d{2}"
-                    {...register("expiryYear", {
-                        min: 23,
-                        max: 30,
-                    })}
+                    register={register}
+                    registerKey="expiryYear"
+                    errors={errors}
+                    validationSchema={{
+                        required: 'Expiry date is required',
+                        pattern: {
+                            value: /^\d{4}$/,
+                            message: 'Please enter a valid expiry date (YYYY)',
+                        },
+                    }}
                 />
             </div>
-            <input
-                type="number"
-                min={0}
-                max={999}
+            <PaymentDetailsInputField
                 className="payment-input"
                 placeholder="CVV"
-                {...register("cvv")}
+                register={register}
+                registerKey="cvv"
+                errors={errors}
+                validationSchema={{
+                    required: 'CVV is required',
+                    pattern: {
+                        value: /^\d{3}$/,
+                        message: 'Please enter a valid CVV',
+                    },
+                }}
             />
 
             <Button>Submit</Button>
