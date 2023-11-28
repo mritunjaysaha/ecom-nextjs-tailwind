@@ -72,7 +72,7 @@ export default function CheckoutPage() {
                                 label="Pincode"
                                 register={register}
                                 registerKey="pinCode"
-                                placeholder="+91 0123456789"
+                                placeholder="560000"
                                 errors={errors}
                                 validationSchema={{ required: "Please enter pin code", maxLength: 6 }}
                             />
