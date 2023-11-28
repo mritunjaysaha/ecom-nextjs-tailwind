@@ -24,7 +24,7 @@ export default function CheckoutPage() {
 
     const { totalPrice, totalQuantity } = useAppSelector((state) => state.cart);
 
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: initialValues,
     });
 
@@ -56,7 +56,8 @@ export default function CheckoutPage() {
                                 label="Full name"
                                 register={register}
                                 registerKey="fullName"
-                                required
+                                errors={errors}
+                                validationSchema={{ required: "Please enter full name" }}
                             />
                             <InputField
                                 type="number"
@@ -64,20 +65,23 @@ export default function CheckoutPage() {
                                 register={register}
                                 registerKey="mobileNumber"
                                 placeholder="+91 0123456789"
-                                required
+                                errors={errors}
+                                validationSchema={{ required: "Please enter mobile number" }}
                             />
                             <InputField
                                 label="Pincode"
                                 register={register}
                                 registerKey="pinCode"
                                 placeholder="+91 0123456789"
-                                required
+                                errors={errors}
+                                validationSchema={{ required: "Please enter pin code", maxLength: 6 }}
                             />
                             <InputField
                                 label="Flat, House no., Building, Company, Apartment"
                                 register={register}
                                 registerKey="address1"
-                                required
+                                validationSchema={{ required: "Please enter address" }}
+                                errors={errors}
                             />
                             <InputField
                                 label="Area, Street, Sector, Village"
@@ -94,13 +98,15 @@ export default function CheckoutPage() {
                                 label="Town/City"
                                 register={register}
                                 registerKey="city"
-                                required
+                                validationSchema={{ required: "Please enter city name" }}
+                                errors={errors}
                             />
                             <InputField
                                 label="State"
                                 register={register}
                                 registerKey="state"
-                                required
+                                validationSchema={{ required: "Please enter state" }}
+                                errors={errors}
                             />
                             <Button className="w-40">Submit</Button>
                         </form>

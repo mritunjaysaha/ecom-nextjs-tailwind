@@ -1,6 +1,6 @@
 import { CheckoutFormType } from "@/types/checkoutForm";
 import { FC, InputHTMLAttributes } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 type InputFieldKeys =
     | "fullName"
@@ -16,12 +16,16 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
     label: string;
     register: UseFormRegister<CheckoutFormType>;
     registerKey: InputFieldKeys;
+    errors?: FieldErrors<CheckoutFormType>;
+    validationSchema?: any;
 };
 
 export const InputField: FC<InputFieldProps> = ({
     label,
     register,
     registerKey,
+    errors = {},
+    validationSchema = {},
     ...rest
 }) => {
     return (
@@ -29,9 +33,10 @@ export const InputField: FC<InputFieldProps> = ({
             <label className="font-semibold text-lg">{label}</label>
             <input
                 {...rest}
-                {...register(registerKey)}
-                className="border rounded-md p-2 pl-4"
+                {...register(registerKey, validationSchema)}
+                className={`border rounded-md p-2 pl-4 ${!!errors[registerKey] ? "border-red-500":""}`}
             />
+            {errors[registerKey]?.message && <p className="text-sm text-red-500">{errors[registerKey]?.message}</p>}
         </div>
     );
 };
