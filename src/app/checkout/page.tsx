@@ -22,7 +22,6 @@ export default function CheckoutPage() {
         state: "",
     };
 
-    const router = useRouter();
     const { totalPrice, totalQuantity } = useAppSelector((state) => state.cart);
 
     const { register, handleSubmit } = useForm({
@@ -57,6 +56,7 @@ export default function CheckoutPage() {
                                 label="Full name"
                                 register={register}
                                 registerKey="fullName"
+                                required
                             />
                             <InputField
                                 type="number"
@@ -64,17 +64,20 @@ export default function CheckoutPage() {
                                 register={register}
                                 registerKey="mobileNumber"
                                 placeholder="+91 0123456789"
+                                required
                             />
                             <InputField
                                 label="Pincode"
                                 register={register}
                                 registerKey="pinCode"
                                 placeholder="+91 0123456789"
+                                required
                             />
                             <InputField
                                 label="Flat, House no., Building, Company, Apartment"
                                 register={register}
                                 registerKey="address1"
+                                required
                             />
                             <InputField
                                 label="Area, Street, Sector, Village"
@@ -91,11 +94,13 @@ export default function CheckoutPage() {
                                 label="Town/City"
                                 register={register}
                                 registerKey="city"
+                                required
                             />
                             <InputField
                                 label="State"
                                 register={register}
                                 registerKey="state"
+                                required
                             />
                             <Button className="w-40">Submit</Button>
                         </form>
